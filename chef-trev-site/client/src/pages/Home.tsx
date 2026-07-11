@@ -385,7 +385,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* What Guests Say */}
+        {/* The Guestbook */}
         <section className="py-24 sm:py-32 bg-charcoal">
           <div className="max-w-4xl mx-auto px-5 sm:px-8 text-center">
             <motion.p
@@ -396,7 +396,7 @@ export default function Home() {
               custom={0}
               className="eyebrow mb-8"
             >
-              What Guests Say
+              The Guestbook
             </motion.p>
             <motion.blockquote
               variants={revealUp}
@@ -416,7 +416,7 @@ export default function Home() {
               custom={2}
               className="text-cream/70 text-sm tracking-wider uppercase"
             >
-              — Recent guest, The Chef's Table at the Bamboo Oasis
+              — A guest, the Chef's Table at the Bamboo Oasis
             </motion.p>
           </div>
         </section>
