@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "wouter";
 import { IMAGES } from "@/lib/images";
+import { revealUp, viewportOnce } from "@/lib/motion";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
@@ -23,6 +25,55 @@ const BUDGET_RANGES = [
   "Prefer to discuss",
 ];
 
+const FAQS = [
+  {
+    q: "What is Chef Trev Presents?",
+    a: "Chef Trev Presents is a Los Angeles experiential private dining company founded by Chef Trevor Brown. It creates candlelit, family-style, multi-course dinners — most famously at the Bamboo Oasis, a bamboo-lined garden — designed to make guests feel seen, heard, and loved. The team has hosted 45 events for more than 1,000 guests.",
+  },
+  {
+    q: "What makes it different from a private chef or caterer?",
+    a: "It's an experience company, not a catering company. Every night is designed end to end — sourcing, menu, music, seating, and flow — so guests connect with each other, not just the food. Dinners are served family style at one shared table, and every ingredient is traceable to a local farm.",
+  },
+  {
+    q: "Where do the dinners happen?",
+    a: "Flagship Chef's Table dinners happen at the Bamboo Oasis in Los Angeles. The team also cooks in private homes across LA, hosts milestone and corporate events at chosen venues, and travels for destination experiences beyond Los Angeles.",
+  },
+  {
+    q: "How many guests can you host?",
+    a: "Everything from intimate home dinners for a handful of guests to milestone celebrations and brand events for larger groups. Share your guest count in the inquiry form and the team will design the right table for it.",
+  },
+  {
+    q: "Can I come alone?",
+    a: "Yes — and honestly, coming alone might be the purest version of the whole idea. This company exists because the world is lonely, and one seat at a shared table is the answer, not the awkward exception. We'll seat you in the middle of things, and by dessert you won't feel like you came alone. Request one seat the same way you'd request ten.",
+  },
+  {
+    q: "How does pricing work?",
+    a: "Pricing depends on the experience type, guest count, menu, and location, so every event is quoted individually. The inquiry form includes budget ranges to start the conversation honestly — the team builds the best possible night within a stated budget rather than upselling past it.",
+  },
+  {
+    q: "Can you accommodate dietary restrictions?",
+    a: "Yes — and it's a point of pride. Guests with dietary restrictions often feel like an afterthought at events; here they get the kitchen's best work. Share restrictions when booking and the menu is adapted, not downgraded.",
+  },
+  {
+    q: "Where does the food come from?",
+    a: "From local Los Angeles farms, seasonally, with traceable sourcing — the team knows who grew and picked the ingredients, and farms are named on printed menus. Seafood is sustainably sourced, and much of the cooking is done over a wood fire.",
+  },
+  {
+    q: "Do the dinners include alcohol?",
+    a: "No. The experiences are built around food, music, and connection — no alcohol program. Guests consistently describe the nights as some of the most present they've had.",
+  },
+  {
+    q: "Who is behind the dinners?",
+    a: "Head Chef Trevor Brown (founder) and Head of Experience Adam Sanchez.",
+  },
+  {
+    q: "How do I book?",
+    a: "Submit the inquiry form at cheftrevpresents.com/contact with your experience type, date, guest count, and budget range. The team replies personally within two business days.",
+  },
+];
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function Contact() {
   const [form, setForm] = useState({
     name: "",
@@ -41,7 +92,11 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.eventType) {
-      toast.error("Please fill in all required fields.");
+      toast.error("We need your name, email, and what we're building — the rest can wait.");
+      return;
+    }
+    if (!EMAIL_PATTERN.test(form.email)) {
+      toast.error("That email doesn't look right — check it so we can actually reply.");
       return;
     }
     setSubmitting(true);
@@ -52,11 +107,10 @@ export default function Contact() {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: body.toString(),
       });
-      if (!res.ok) throw new Error("Network error");
+      if (!res.ok) throw new Error("That didn't go through. Try once more — or just email us at trevor@cheftrevpresents.com.");
       setSubmitted(true);
-      toast.success("Inquiry sent successfully");
     } catch (err: any) {
-      toast.error(err.message || "Something went wrong. Please try again.");
+      toast.error(err.message || "That didn't go through. Try once more — or just email us at trevor@cheftrevpresents.com.");
     } finally {
       setSubmitting(false);
     }
@@ -67,34 +121,40 @@ export default function Contact() {
   };
 
   if (submitted) {
+    const firstName = form.name.trim().split(/\s+/)[0];
     return (
-      <div className="min-h-screen bg-warm-black text-cream">
+      <div className="min-h-screen bg-cream text-warm-black">
         <Navigation />
 
       <main id="main-content" tabIndex={-1} className="outline-none">
         <div className="min-h-screen flex flex-col items-center justify-center text-center px-5">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            variants={revealUp}
+            initial="hidden"
+            animate="visible"
           >
-            <p className="text-gold text-xs tracking-[0.3em] uppercase mb-6">Thank You</p>
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl leading-tight mb-6">
-              Your Inquiry Has<br />
-              <span className="italic text-gold">Been Received</span>
+            <p className="eyebrow mb-6">Your Seat Is Set</p>
+            <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl leading-tight mb-8">
+              {firstName}
             </h1>
-            <p className="text-cream/60 max-w-md mx-auto leading-relaxed mb-10">
-              We'll review your request and reach out within 48 hours to begin crafting your experience.
+            <div className="w-16 h-px bg-warm-black/20 mx-auto mb-8" />
+            <p className="text-warm-black/70 max-w-md mx-auto leading-relaxed mb-10">
+              Got it. We'll be in touch within two business days. Start thinking about who you're seating next to whom.
             </p>
             <button
               onClick={() => {
                 setSubmitted(false);
                 setForm({ name: "", email: "", eventType: "", guestCount: "", location: "", budget: "", date: "", message: "" });
               }}
-              className="px-8 py-3.5 border border-gold/50 text-gold text-xs tracking-[0.2em] uppercase hover:bg-gold hover:text-warm-black transition-all duration-500"
+              className="px-8 py-3.5 border border-warm-black/30 text-warm-black text-xs tracking-[0.2em] uppercase hover:bg-warm-black hover:text-cream transition-all duration-300"
             >
-              Submit Another Inquiry
+              Send Another
             </button>
+            <div>
+              <Link href="/" className="inline-block mt-6 text-warm-black/60 text-sm hover:text-warm-black transition-colors duration-300">
+                Back to the table
+              </Link>
+            </div>
           </motion.div>
         </div>
       </main>
@@ -110,31 +170,33 @@ export default function Contact() {
       <main id="main-content" tabIndex={-1} className="outline-none">
 
       {/* Hero */}
-      <section className="relative h-[50vh] sm:h-[60vh] w-full overflow-hidden">
+      <section className="relative h-[50vh] sm:h-[60vh] w-full overflow-hidden grain">
         <div className="absolute inset-0">
           <img
             src={IMAGES.events.tableEmptySet}
-            alt="A beautifully set table awaiting guests"
+            alt="A set table waiting for guests — your seat is the empty one"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-warm-black/50 via-warm-black/20 to-warm-black" />
         </div>
         <div className="relative z-10 h-full flex flex-col justify-end pb-16 sm:pb-20 px-5 sm:px-8 max-w-7xl mx-auto">
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-gold text-xs tracking-[0.3em] uppercase mb-4"
+            variants={revealUp}
+            initial="hidden"
+            animate="visible"
+            custom={0}
+            className="eyebrow mb-4"
           >
-            Inquire
+            Get in Touch
           </motion.p>
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
+            variants={revealUp}
+            initial="hidden"
+            animate="visible"
+            custom={1}
             className="font-serif text-4xl sm:text-5xl md:text-7xl leading-[1.1]"
           >
-            Begin the <span className="italic text-gold">Conversation</span>
+            Pull up a chair.
           </motion.h1>
         </div>
       </section>
@@ -143,13 +205,16 @@ export default function Contact() {
       <section className="py-24 sm:py-32">
         <div className="max-w-3xl mx-auto px-5 sm:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            variants={revealUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
           >
+            <p className="text-cream/70 leading-relaxed mb-4 max-w-xl">
+              Tell us what you're dreaming up — a seat at the next Chef's Table, a dinner in your home, a milestone worth marking, a collaboration, or something we haven't built yet. Give us the honest details: how many people, what the night is for, what you want everyone to feel walking out.
+            </p>
             <p className="text-cream/70 leading-relaxed mb-12 max-w-xl">
-              Every experience begins with understanding your vision. Share the details below and we'll reach out to start planning something extraordinary.
+              We read every message ourselves and reply within two business days. No call centers, no scripts. Just us.
             </p>
 
             <form onSubmit={handleSubmit} name="inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" className="space-y-8">
@@ -159,7 +224,7 @@ export default function Contact() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="inquiry-name" className="block text-xs tracking-[0.15em] uppercase text-cream/70 mb-2">
-                    Name <span className="text-gold">*</span>
+                    Your Name <span className="text-gold">*</span>
                   </label>
                   <input
                     id="inquiry-name"
@@ -167,7 +232,7 @@ export default function Contact() {
                     value={form.name}
                     onChange={(e) => handleChange("name", e.target.value)}
                     className="w-full bg-transparent border-b border-white/10 pb-3 text-cream focus:border-gold/50 focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:outline-none transition-colors duration-300 placeholder:text-cream/50"
-                    placeholder="Your name"
+                    placeholder="First and last is plenty"
                     required
                     autoComplete="name"
                   />
@@ -182,7 +247,7 @@ export default function Contact() {
                     value={form.email}
                     onChange={(e) => handleChange("email", e.target.value)}
                     className="w-full bg-transparent border-b border-white/10 pb-3 text-cream focus:border-gold/50 focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:outline-none transition-colors duration-300 placeholder:text-cream/50"
-                    placeholder="your@email.com"
+                    placeholder="So we can write you back"
                     required
                     autoComplete="email"
                   />
@@ -192,7 +257,7 @@ export default function Contact() {
               {/* Event Type */}
               <div>
                 <label htmlFor="inquiry-event-type" className="block text-xs tracking-[0.15em] uppercase text-cream/70 mb-2">
-                  Experience Type <span className="text-gold">*</span>
+                  What Are We Building? <span className="text-gold">*</span>
                 </label>
                 <select
                   id="inquiry-event-type"
@@ -201,31 +266,18 @@ export default function Contact() {
                   className="w-full bg-transparent border-b border-white/10 pb-3 text-cream focus:border-gold/50 focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:outline-none transition-colors duration-300 appearance-none"
                   required
                 >
-                  <option value="" className="bg-charcoal">Select an experience type</option>
+                  <option value="" className="bg-charcoal">Pick one</option>
                   {EVENT_TYPES.map((type) => (
                     <option key={type} value={type} className="bg-charcoal">{type}</option>
                   ))}
                 </select>
               </div>
 
-              {/* Guest Count & Date */}
+              {/* Date & Guest Count */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="inquiry-guest-count" className="block text-xs tracking-[0.15em] uppercase text-cream/70 mb-2">
-                    Guest Count
-                  </label>
-                  <input
-                    id="inquiry-guest-count"
-                    type="text"
-                    value={form.guestCount}
-                    onChange={(e) => handleChange("guestCount", e.target.value)}
-                    className="w-full bg-transparent border-b border-white/10 pb-3 text-cream focus:border-gold/50 focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:outline-none transition-colors duration-300 placeholder:text-cream/50"
-                    placeholder="Estimated number of guests"
-                  />
-                </div>
-                <div>
                   <label htmlFor="inquiry-date" className="block text-xs tracking-[0.15em] uppercase text-cream/70 mb-2">
-                    Preferred Date
+                    When, Roughly?
                   </label>
                   <input
                     id="inquiry-date"
@@ -233,7 +285,20 @@ export default function Contact() {
                     value={form.date}
                     onChange={(e) => handleChange("date", e.target.value)}
                     className="w-full bg-transparent border-b border-white/10 pb-3 text-cream focus:border-gold/50 focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:outline-none transition-colors duration-300 placeholder:text-cream/50"
-                    placeholder="Date or date range"
+                    placeholder="A date, a month, a season — rough is fine"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="inquiry-guest-count" className="block text-xs tracking-[0.15em] uppercase text-cream/70 mb-2">
+                    How Many Guests?
+                  </label>
+                  <input
+                    id="inquiry-guest-count"
+                    type="text"
+                    value={form.guestCount}
+                    onChange={(e) => handleChange("guestCount", e.target.value)}
+                    className="w-full bg-transparent border-b border-white/10 pb-3 text-cream focus:border-gold/50 focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:outline-none transition-colors duration-300 placeholder:text-cream/50"
+                    placeholder="Best guess"
                   />
                 </div>
               </div>
@@ -241,7 +306,7 @@ export default function Contact() {
               {/* Location */}
               <div>
                 <label htmlFor="inquiry-location" className="block text-xs tracking-[0.15em] uppercase text-cream/70 mb-2">
-                  Location
+                  Where?
                 </label>
                 <input
                   id="inquiry-location"
@@ -249,7 +314,7 @@ export default function Contact() {
                   value={form.location}
                   onChange={(e) => handleChange("location", e.target.value)}
                   className="w-full bg-transparent border-b border-white/10 pb-3 text-cream focus:border-gold/50 focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:outline-none transition-colors duration-300 placeholder:text-cream/50"
-                  placeholder="City or venue"
+                  placeholder="City, venue, or 'your garden'"
                 />
               </div>
 
@@ -264,7 +329,7 @@ export default function Contact() {
                   onChange={(e) => handleChange("budget", e.target.value)}
                   className="w-full bg-transparent border-b border-white/10 pb-3 text-cream focus:border-gold/50 focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:outline-none transition-colors duration-300 appearance-none"
                 >
-                  <option value="" className="bg-charcoal">Select a range</option>
+                  <option value="" className="bg-charcoal">Pick a range</option>
                   {BUDGET_RANGES.map((range) => (
                     <option key={range} value={range} className="bg-charcoal">{range}</option>
                   ))}
@@ -274,7 +339,7 @@ export default function Contact() {
               {/* Message */}
               <div>
                 <label htmlFor="inquiry-message" className="block text-xs tracking-[0.15em] uppercase text-cream/70 mb-2">
-                  Tell Us More
+                  Tell Us About Your Night
                 </label>
                 <textarea
                   id="inquiry-message"
@@ -282,7 +347,7 @@ export default function Contact() {
                   onChange={(e) => handleChange("message", e.target.value)}
                   rows={4}
                   className="w-full bg-transparent border-b border-white/10 pb-3 text-cream focus:border-gold/50 focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:outline-none transition-colors duration-300 placeholder:text-cream/50 resize-none"
-                  placeholder="Share your vision, any dietary needs, or special requests..."
+                  placeholder="Who's coming, what it's for, what you want everyone to feel walking out. Dietary needs go here too."
                 />
               </div>
 
@@ -291,14 +356,80 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full sm:w-auto px-12 py-4 bg-gold text-warm-black text-xs tracking-[0.2em] uppercase font-semibold hover:bg-gold-light transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full sm:w-auto px-12 py-4 bg-gold text-warm-black text-xs tracking-[0.2em] uppercase font-semibold hover:bg-gold-light transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {submitting ? "Sending..." : "Submit Inquiry"}
+                  {submitting ? "Sending…" : "Send It"}
                 </button>
               </div>
             </form>
           </motion.div>
         </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-24 sm:py-32 bg-charcoal">
+        <div className="max-w-3xl mx-auto px-5 sm:px-8">
+          <motion.p
+            variants={revealUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            custom={0}
+            className="eyebrow mb-4 text-center"
+          >
+            Questions
+          </motion.p>
+          <motion.h2
+            variants={revealUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            custom={1}
+            className="font-serif text-3xl sm:text-4xl leading-tight mb-4 text-center"
+          >
+            Straight answers.
+          </motion.h2>
+          <motion.p
+            variants={revealUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            custom={2}
+            className="text-cream/60 text-center mb-16 max-w-xl mx-auto"
+          >
+            The things people ask before they book. If yours isn't here, put it in the form.
+          </motion.p>
+
+          <div className="space-y-0">
+            {FAQS.map((item, i) => (
+              <motion.div
+                key={item.q}
+                variants={revealUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+                custom={i * 0.3}
+                className="border-b border-white/5 py-8 first:pt-0 last:border-b-0"
+              >
+                <h3 className="font-serif text-xl mb-3">{item.q}</h3>
+                <p className="text-cream/60 leading-relaxed">{item.a}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Closing */}
+      <section className="py-24 sm:py-32 text-center">
+        <motion.p
+          variants={revealUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          className="font-serif italic text-2xl sm:text-3xl text-cream/90 max-w-xl mx-auto px-5"
+        >
+          See you at the table.
+        </motion.p>
       </section>
 
       </main>
