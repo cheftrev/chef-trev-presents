@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { GALLERY_IMAGES } from "@/lib/images";
 import { revealUp } from "@/lib/motion";
+import { useJsonLd, breadcrumb } from "@/lib/useJsonLd";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -11,6 +12,32 @@ const CATEGORIES = ["all", "people", "atmosphere", "events", "food"] as const;
 export default function Gallery() {
   const [filter, setFilter] = useState<string>("all");
   const [lightbox, setLightbox] = useState<number | null>(null);
+
+  useEffect(() => {
+    document.title = "Gallery | Candlelit Dinners in the Bamboo Oasis, LA";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "Real nights at the table: candlelit dinners in a bamboo garden, wood-fired courses, live music, and 1,000+ guests gathered in Los Angeles.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
+    const metaKeywords = document.querySelector('meta[name="keywords"]');
+    const keywordsContent = "private dining event photos LA, bamboo garden dinner Los Angeles, supper club Los Angeles photos";
+    if (metaKeywords) {
+      metaKeywords.setAttribute('content', keywordsContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'keywords';
+      meta.content = keywordsContent;
+      document.head.appendChild(meta);
+    }
+  }, []);
+
+  useJsonLd("breadcrumb", breadcrumb("Gallery", "/gallery"));
 
   // Lock body scroll when lightbox is open
   useEffect(() => {
