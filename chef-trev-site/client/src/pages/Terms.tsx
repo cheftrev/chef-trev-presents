@@ -15,7 +15,7 @@ const SECTIONS: LegalSection[] = [
   {
     heading: "2. Who We Are",
     paragraphs: [
-      "The Site is operated by Chef Trev Presents [add legal entity name, e.g. \"Chef Trev Presents LLC\"], based in Los Angeles, California.",
+      "The Site is operated by Chef Trev Presents LLC, based in Los Angeles, California.",
     ],
   },
   {
