@@ -91,6 +91,8 @@ export default function Contact() {
 
   const [submitting, setSubmitting] = useState(false);
 
+  const [errors, setErrors] = useState<{ name?: string; email?: string; eventType?: string }>({});
+
   useEffect(() => {
     document.title = "Book a Private Dinner in Los Angeles | Chef Trev Presents";
     const metaDesc = document.querySelector('meta[name="description"]');
@@ -135,14 +137,21 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.eventType) {
+    const nextErrors: typeof errors = {};
+    if (!form.name) nextErrors.name = "Your name is required.";
+    if (!form.email) nextErrors.email = "Your email is required.";
+    else if (!EMAIL_PATTERN.test(form.email)) nextErrors.email = "That email doesn't look right — check it so we can actually reply.";
+    if (!form.eventType) nextErrors.eventType = "Pick what we're building.";
+    if (Object.keys(nextErrors).length > 0) {
+      setErrors(nextErrors);
       toast.error("We need your name, email, and what we're building — the rest can wait.");
+      const firstInvalidField = ["name", "email", "eventType"].find((f) => f in nextErrors);
+      if (firstInvalidField) {
+        document.getElementById(`inquiry-${firstInvalidField === "eventType" ? "event-type" : firstInvalidField}`)?.focus();
+      }
       return;
     }
-    if (!EMAIL_PATTERN.test(form.email)) {
-      toast.error("That email doesn't look right — check it so we can actually reply.");
-      return;
-    }
+    setErrors({});
     setSubmitting(true);
     try {
       const body = new URLSearchParams({ "form-name": "inquiry", ...form });
@@ -162,6 +171,12 @@ export default function Contact() {
 
   const handleChange = (field: string, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
+    setErrors((prev) => {
+      if (!(field in prev)) return prev;
+      const next = { ...prev };
+      delete next[field as keyof typeof next];
+      return next;
+    });
   };
 
   if (submitted) {
@@ -261,7 +276,7 @@ export default function Contact() {
               We read every message ourselves and reply within two business days. No call centers, no scripts. Just us.
             </p>
 
-            <form onSubmit={handleSubmit} name="inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" className="space-y-8">
+            <form onSubmit={handleSubmit} noValidate name="inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" className="space-y-8">
               <input type="hidden" name="form-name" value="inquiry" />
               <p className="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
               {/* Name & Email */}
@@ -279,7 +294,14 @@ export default function Contact() {
                     placeholder="First and last is plenty"
                     required
                     autoComplete="name"
+                    aria-invalid={!!errors.name}
+                    aria-describedby={errors.name ? "inquiry-name-error" : undefined}
                   />
+                  {errors.name && (
+                    <p id="inquiry-name-error" role="alert" className="mt-2 text-xs text-red-400">
+                      {errors.name}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label htmlFor="inquiry-email" className="block text-xs tracking-[0.15em] uppercase text-cream/70 mb-2">
@@ -294,7 +316,14 @@ export default function Contact() {
                     placeholder="So we can write you back"
                     required
                     autoComplete="email"
+                    aria-invalid={!!errors.email}
+                    aria-describedby={errors.email ? "inquiry-email-error" : undefined}
                   />
+                  {errors.email && (
+                    <p id="inquiry-email-error" role="alert" className="mt-2 text-xs text-red-400">
+                      {errors.email}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -309,12 +338,19 @@ export default function Contact() {
                   onChange={(e) => handleChange("eventType", e.target.value)}
                   className="w-full bg-transparent border-b border-white/10 pb-3 text-cream focus:border-gold/50 focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:outline-none transition-colors duration-300 appearance-none"
                   required
+                  aria-invalid={!!errors.eventType}
+                  aria-describedby={errors.eventType ? "inquiry-event-type-error" : undefined}
                 >
                   <option value="" className="bg-charcoal">Pick one</option>
                   {EVENT_TYPES.map((type) => (
                     <option key={type} value={type} className="bg-charcoal">{type}</option>
                   ))}
                 </select>
+                {errors.eventType && (
+                  <p id="inquiry-event-type-error" role="alert" className="mt-2 text-xs text-red-400">
+                    {errors.eventType}
+                  </p>
+                )}
               </div>
 
               {/* Date & Guest Count */}

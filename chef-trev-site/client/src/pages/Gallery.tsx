@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { GALLERY_IMAGES } from "@/lib/images";
@@ -13,6 +13,40 @@ const CATEGORIES = ["all", "people", "atmosphere", "events", "food"] as const;
 export default function Gallery() {
   const [filter, setFilter] = useState<string>("all");
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const lightboxRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
+
+  const openLightbox = (i: number, trigger: HTMLElement) => {
+    triggerRef.current = trigger;
+    setLightbox(i);
+  };
+
+  const closeLightbox = useCallback(() => {
+    setLightbox(null);
+    triggerRef.current?.focus();
+  }, []);
+
+  const handleLightboxKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === "Escape") {
+      closeLightbox();
+      return;
+    }
+    if (e.key === "Tab") {
+      const focusable = lightboxRef.current?.querySelectorAll(
+        'button, [href], [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable || focusable.length === 0) return;
+      const first = focusable[0] as HTMLElement;
+      const last = focusable[focusable.length - 1] as HTMLElement;
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }, [closeLightbox]);
 
   useEffect(() => {
     document.title = "Gallery | Candlelit Dinners in the Bamboo Oasis, LA";
@@ -135,8 +169,8 @@ export default function Gallery() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4, delay: i * 0.03 }}
                   className="mb-4 break-inside-avoid overflow-hidden cursor-pointer group focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:outline-none"
-                  onClick={() => setLightbox(i)}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setLightbox(i); } }}
+                  onClick={(e) => openLightbox(i, e.currentTarget)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(i, e.currentTarget); } }}
                   role="button"
                   tabIndex={0}
                   aria-label={`View ${img.alt}`}
@@ -158,6 +192,7 @@ export default function Gallery() {
       <AnimatePresence>
         {lightbox !== null && (
           <motion.div
+            ref={lightboxRef}
             role="dialog"
             aria-modal="true"
             aria-label={`Image: ${filtered[lightbox]?.alt}`}
@@ -166,12 +201,12 @@ export default function Gallery() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-[100] bg-warm-black/95 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8"
-            onClick={() => setLightbox(null)}
-            onKeyDown={(e) => { if (e.key === 'Escape') setLightbox(null); }}
+            onClick={closeLightbox}
+            onKeyDown={handleLightboxKeyDown}
           >
             <button
               className="absolute top-6 right-6 text-cream/60 hover:text-cream z-10 focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:outline-none p-2"
-              onClick={() => setLightbox(null)}
+              onClick={closeLightbox}
               aria-label="Close lightbox"
               autoFocus
             >

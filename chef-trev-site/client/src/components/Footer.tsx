@@ -70,6 +70,9 @@ export default function Footer() {
               <Link href="/terms" className="text-xs text-cream/60 hover:text-gold transition-colors duration-300">
                 Terms of Service
               </Link>
+              <Link href="/accessibility" className="text-xs text-cream/60 hover:text-gold transition-colors duration-300">
+                Accessibility
+              </Link>
             </div>
           </div>
           <p className="text-xs text-cream/70">

@@ -2,6 +2,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
+import { MotionConfig } from "framer-motion";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ScrollToTop from "./components/ScrollToTop";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -18,6 +19,7 @@ import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import Accessibility from "./pages/Accessibility";
 
 function Router() {
   return (
@@ -37,6 +39,7 @@ function Router() {
         <Route path={"/contact"} component={Contact} />
         <Route path={"/privacy"} component={Privacy} />
         <Route path={"/terms"} component={Terms} />
+        <Route path={"/accessibility"} component={Accessibility} />
         <Route path={"/404"} component={NotFound} />
         <Route component={NotFound} />
       </Switch>
@@ -49,11 +52,13 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider defaultTheme="dark">
         <TooltipProvider>
-          <a href="#main-content" className="skip-to-content">
-            Skip to main content
-          </a>
-          <Toaster />
-          <Router />
+          <MotionConfig reducedMotion="user">
+            <a href="#main-content" className="skip-to-content">
+              Skip to main content
+            </a>
+            <Toaster />
+            <Router />
+          </MotionConfig>
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
