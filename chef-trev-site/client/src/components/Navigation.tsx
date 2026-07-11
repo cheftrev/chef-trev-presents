@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { href: "/experiences", label: "Experiences" },
   { href: "/menu", label: "Menu" },
   { href: "/gallery", label: "Gallery" },
-  { href: "/contact", label: "Inquire" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Navigation() {
@@ -110,7 +110,7 @@ export default function Navigation() {
               href="/contact"
               className="ml-2 px-5 py-2 border border-gold/40 text-gold text-xs tracking-widest uppercase hover:bg-gold hover:text-warm-black transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
             >
-              Book an Experience
+              Request Your Seat
             </Link>
           </div>
 
@@ -180,7 +180,7 @@ export default function Navigation() {
                   href="/contact"
                   className="mt-4 px-8 py-3 border border-gold/40 text-gold text-sm tracking-widest uppercase hover:bg-gold hover:text-warm-black transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold"
                 >
-                  Book an Experience
+                  Request Your Seat
                 </Link>
               </motion.div>
             </motion.div>

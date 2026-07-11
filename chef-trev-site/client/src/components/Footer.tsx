@@ -11,7 +11,7 @@ export default function Footer() {
               Chef Trev <span className="text-gold italic">Presents</span>
             </h3>
             <p className="text-cream/70 text-sm leading-relaxed max-w-xs">
-              Immersive dining experiences that blend food, music, atmosphere, and human connection.
+              To make the world less lonely, around the table.
             </p>
           </div>
 
@@ -20,11 +20,11 @@ export default function Footer() {
             <h4 className="text-xs tracking-[0.2em] uppercase text-gold mb-6">Navigate</h4>
             <div className="flex flex-col gap-3">
               {[
-                { href: "/about", label: "About Chef Trev" },
+                { href: "/about", label: "About" },
                 { href: "/experiences", label: "Experiences" },
                 { href: "/menu", label: "Menu" },
                 { href: "/gallery", label: "Gallery" },
-                { href: "/contact", label: "Inquire" },
+                { href: "/contact", label: "Contact" },
               ].map((link) => (
                 <Link
                   key={link.href}
@@ -39,9 +39,9 @@ export default function Footer() {
 
           {/* Connect */}
           <div>
-            <h4 className="text-xs tracking-[0.2em] uppercase text-gold mb-6">Connect</h4>
+            <h4 className="text-xs tracking-[0.2em] uppercase text-gold mb-6">Say Hi</h4>
             <div className="flex flex-col gap-3 text-sm text-cream/70">
-              <p>📍 Los Angeles, CA | Available Worldwide</p>
+              <p>Based in Los Angeles. We travel.</p>
               <a
                 href="https://www.instagram.com/cheftrevpresents"
                 target="_blank"
@@ -50,9 +50,9 @@ export default function Footer() {
               >
                 @cheftrevpresents
               </a>
-              <Link href="/contact" className="hover:text-gold transition-colors duration-300">
-                Book a Private Experience
-              </Link>
+              <a href="mailto:trevor@cheftrevpresents.com" className="hover:text-gold transition-colors duration-300">
+                trevor@cheftrevpresents.com
+              </a>
             </div>
           </div>
         </div>
@@ -63,7 +63,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Chef Trev Presents. All rights reserved.
           </p>
           <p className="text-xs text-cream/70">
-            Crafted with intention.
+            See you at the table.
           </p>
         </div>
       </div>
