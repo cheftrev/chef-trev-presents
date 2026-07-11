@@ -124,7 +124,7 @@ export default function Contact() {
     const firstName = form.name.trim().split(/\s+/)[0];
     return (
       <div className="min-h-screen bg-cream text-warm-black">
-        <Navigation />
+        <Navigation forceSolid />
 
       <main id="main-content" tabIndex={-1} className="outline-none">
         <div className="min-h-screen flex flex-col items-center justify-center text-center px-5">
@@ -133,7 +133,7 @@ export default function Contact() {
             initial="hidden"
             animate="visible"
           >
-            <p className="eyebrow mb-6">Your Seat Is Set</p>
+            <p className="eyebrow-dark mb-6">Your Seat Is Set</p>
             <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl leading-tight mb-8">
               {firstName}
             </h1>
