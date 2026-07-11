@@ -21,6 +21,68 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Organization (sitewide -- same facts on every page, per Search Visibility Architecture SS5) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "@id": "https://cheftrevpresents.com/#organization",
+      "additionalType": "https://schema.org/FoodEstablishment",
+      "name": "Chef Trev Presents",
+      "slogan": "An experience disguised as a dinner.",
+      "description": "Chef Trev Presents is a Los Angeles experiential private dining company founded by Chef Trevor Brown. It creates candlelit, family-style, multi-course dinners — most famously at the Bamboo Oasis, a bamboo-lined garden — designed to make guests feel seen, heard, and loved.",
+      "url": "https://cheftrevpresents.com",
+      "logo": "https://d2xsxph8kpxj0f.cloudfront.net/310519663556008555/PPnhKJaX6dydjV4JnqkZJ3/favicon_ctp-cmbavRmYu3w4NzKEwWPGKq.png",
+      "image": "https://cheftrevpresents.com/manus-storage/hero_people_dinner_moment_1.jpg",
+      "email": "trevor@cheftrevpresents.com",
+      "founder": { "@id": "https://cheftrevpresents.com/about#trevor-brown" },
+      "areaServed": { "@type": "City", "name": "Los Angeles" },
+      "servesCuisine": ["Seasonal Californian", "Farm-to-table", "Wood-fired"],
+      "priceRange": "$$$",
+      "knowsAbout": ["Family-style dining", "Farm-to-table sourcing", "Wood-fired cooking", "Private event planning", "Experiential dining"],
+      "sameAs": ["https://www.instagram.com/cheftrevpresents"],
+      "makesOffer": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "The Chef's Table (Bamboo Oasis)" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Intimate Home Dinners" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Milestone Celebrations & Private Events" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Brand Collaborations & Partnerships" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Destination Experiences" } }
+      ],
+      "employee": [
+        { "@id": "https://cheftrevpresents.com/about#trevor-brown" },
+        { "@type": "Person", "name": "Adam Sanchez", "jobTitle": "Head of Experience" }
+      ]
+    }
+    </script>
+
+    <!-- Person: Trevor Brown (Chef Trev) -- entity home is /about until /trevor ships -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": "https://cheftrevpresents.com/about#trevor-brown",
+      "name": "Trevor Brown",
+      "alternateName": "Chef Trev",
+      "jobTitle": "Head Chef & Founder",
+      "description": "Self-taught, intuitive, allergic to pretension. Builds the menus, leads the kitchen, and will absolutely come sit at your end of the table.",
+      "image": "https://cheftrevpresents.com/manus-storage/chef_trev_portrait.jpg",
+      "url": "https://cheftrevpresents.com/about",
+      "worksFor": { "@id": "https://cheftrevpresents.com/#organization" },
+      "knowsAbout": ["Family-style dining", "Farm sourcing", "Live-fire cooking", "Gathering design"],
+      "sameAs": ["https://www.instagram.com/cheftrevpresents"]
+    }
+    </script>
+
+    <!-- WebSite -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Chef Trev Presents",
+      "url": "https://cheftrevpresents.com"
+    }
+    </script>
   </head>
 
   <body>
