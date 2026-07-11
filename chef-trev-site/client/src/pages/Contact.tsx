@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { IMAGES } from "@/lib/images";
 import { revealUp, viewportOnce } from "@/lib/motion";
+import { useJsonLd, breadcrumb } from "@/lib/useJsonLd";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
@@ -88,6 +89,42 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
 
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    document.title = "Book a Private Dinner in Los Angeles | Chef Trev Presents";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const descContent = "Request a seat at the Chef's Table, plan a private dinner or milestone event, or start a brand collaboration. Personal replies within two business days.";
+    if (metaDesc) {
+      metaDesc.setAttribute('content', descContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = descContent;
+      document.head.appendChild(meta);
+    }
+    const metaKeywords = document.querySelector('meta[name="keywords"]');
+    const keywordsContent = "book private chef Los Angeles, hire private dining experience LA, chef's table booking, private event chef Los Angeles";
+    if (metaKeywords) {
+      metaKeywords.setAttribute('content', keywordsContent);
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'keywords';
+      meta.content = keywordsContent;
+      document.head.appendChild(meta);
+    }
+  }, []);
+
+  useJsonLd("breadcrumb", breadcrumb("Contact", "/contact"));
+
+  useJsonLd("faq", {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
