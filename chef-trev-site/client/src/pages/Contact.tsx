@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import { IMAGES } from "@/lib/images";
 import { revealUp, viewportOnce } from "@/lib/motion";
 import { useJsonLd, breadcrumb } from "@/lib/useJsonLd";
+import { setSocialMeta } from "@/lib/seo";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
@@ -112,6 +113,12 @@ export default function Contact() {
       meta.content = keywordsContent;
       document.head.appendChild(meta);
     }
+    setSocialMeta({
+      title: "Book a Private Dinner in Los Angeles | Chef Trev Presents",
+      description: descContent,
+      path: "/contact",
+      image: IMAGES.events.tableEmptySet,
+    });
   }, []);
 
   useJsonLd("breadcrumb", breadcrumb("Contact", "/contact"));

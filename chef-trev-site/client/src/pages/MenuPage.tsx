@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import { IMAGES } from "@/lib/images";
 import { revealUp } from "@/lib/motion";
 import { useJsonLd, breadcrumb } from "@/lib/useJsonLd";
+import { setSocialMeta } from "@/lib/seo";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -78,6 +79,12 @@ export default function MenuPage() {
       meta.content = keywordsContent;
       document.head.appendChild(meta);
     }
+    setSocialMeta({
+      title: "Seasonal Farm-Traced Menus | Chef Trev Presents, LA",
+      description: descContent,
+      path: "/menu",
+      image: IMAGES.food.platingChef,
+    });
   }, []);
 
   useJsonLd("breadcrumb", breadcrumb("Menu", "/menu"));

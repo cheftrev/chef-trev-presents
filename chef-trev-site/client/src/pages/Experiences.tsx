@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import { IMAGES } from "@/lib/images";
 import { revealUp, viewportOnce } from "@/lib/motion";
 import { useJsonLd, breadcrumb } from "@/lib/useJsonLd";
+import { setSocialMeta } from "@/lib/seo";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { EXPERIENCES } from "@/pages/experiences/data";
@@ -31,6 +32,12 @@ export default function Experiences() {
       meta.content = keywordsContent;
       document.head.appendChild(meta);
     }
+    setSocialMeta({
+      title: "Chef's Table & Private Dinners in Los Angeles | Chef Trev",
+      description: descContent,
+      path: "/experiences",
+      image: IMAGES.hero.tableCloseUp,
+    });
   }, []);
 
   useJsonLd("breadcrumb", breadcrumb("Experiences", "/experiences"));

@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import { IMAGES } from "@/lib/images";
 import { revealUp, viewportOnce } from "@/lib/motion";
 import { useCountUp } from "@/lib/useCountUp";
+import { setSocialMeta } from "@/lib/seo";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -50,6 +51,12 @@ export default function Home() {
       meta.content = keywordsContent;
       document.head.appendChild(meta);
     }
+    setSocialMeta({
+      title: "Chef Trev Presents | Immersive Private Dining in LA",
+      description: descContent,
+      path: "/",
+      image: IMAGES.hero.peopleDinnerMoment1,
+    });
   }, []);
 
   return (

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { IMAGES } from "@/lib/images";
 import { revealUp, viewportOnce } from "@/lib/motion";
 import { useJsonLd, breadcrumb } from "@/lib/useJsonLd";
+import { setSocialMeta } from "@/lib/seo";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -42,6 +43,12 @@ export default function About() {
       meta.content = keywordsContent;
       document.head.appendChild(meta);
     }
+    setSocialMeta({
+      title: "About Chef Trev | Private Chef & Host in Los Angeles",
+      description: descContent,
+      path: "/about",
+      image: IMAGES.hero.chefPortrait,
+    });
   }, []);
 
   useJsonLd("breadcrumb", breadcrumb("About", "/about"));

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { revealUp, viewportOnce } from "@/lib/motion";
 import { useJsonLd, breadcrumb3 } from "@/lib/useJsonLd";
+import { setSocialMeta } from "@/lib/seo";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { getExperience } from "./data";
@@ -31,6 +32,12 @@ export default function ExperienceDetail({ slug }: { slug: string }) {
       meta.content = experience.metaKeywords;
       document.head.appendChild(meta);
     }
+    setSocialMeta({
+      title: experience.metaTitle,
+      description: experience.metaDescription,
+      path: `/experiences/${experience.slug}`,
+      image: experience.image,
+    });
   }, [experience]);
 
   useJsonLd(

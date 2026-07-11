@@ -1,8 +1,15 @@
+import { useEffect } from "react";
 import { Link } from "wouter";
+import { setNoIndex } from "@/lib/seo";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
 export default function NotFound() {
+  useEffect(() => {
+    document.title = "Page Not Found | Chef Trev Presents";
+    setNoIndex();
+  }, []);
+
   return (
     <div className="min-h-screen bg-warm-black text-cream">
       <Navigation />

@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 import { GALLERY_IMAGES } from "@/lib/images";
 import { revealUp } from "@/lib/motion";
 import { useJsonLd, breadcrumb } from "@/lib/useJsonLd";
+import { setSocialMeta } from "@/lib/seo";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -35,6 +36,12 @@ export default function Gallery() {
       meta.content = keywordsContent;
       document.head.appendChild(meta);
     }
+    setSocialMeta({
+      title: "Gallery | Candlelit Dinners in the Bamboo Oasis, LA",
+      description: descContent,
+      path: "/gallery",
+      image: GALLERY_IMAGES[0].src,
+    });
   }, []);
 
   useJsonLd("breadcrumb", breadcrumb("Gallery", "/gallery"));
