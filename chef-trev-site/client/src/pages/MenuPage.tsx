@@ -7,6 +7,7 @@ import { useJsonLd, breadcrumb } from "@/lib/useJsonLd";
 import { setSocialMeta } from "@/lib/seo";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import PastMenusArchive from "@/components/PastMenusArchive";
 
 // Real, hand-set date -- updated only when Trevor actually changes the menu.
 // Never compute this from the current date (Design Manifesto §9, amended SM2).
@@ -181,6 +182,8 @@ export default function MenuPage() {
           className="w-full h-full object-cover"
         />
       </motion.div>
+
+      <PastMenusArchive />
 
       {/* Footer note + closing CTA */}
       <section className="py-32 sm:py-40 border-t border-warm-black/10">
