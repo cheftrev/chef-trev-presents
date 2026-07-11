@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { IMAGES } from "@/lib/images";
 import { revealUp, viewportOnce } from "@/lib/motion";
+import { useJsonLd, breadcrumb } from "@/lib/useJsonLd";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -84,6 +85,8 @@ export default function Experiences() {
       document.head.appendChild(meta);
     }
   }, []);
+
+  useJsonLd("breadcrumb", breadcrumb("Experiences", "/experiences"));
 
   return (
     <div className="min-h-screen bg-warm-black text-cream">

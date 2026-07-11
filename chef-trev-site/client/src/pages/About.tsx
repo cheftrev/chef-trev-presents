@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { IMAGES } from "@/lib/images";
 import { revealUp, viewportOnce } from "@/lib/motion";
+import { useJsonLd, breadcrumb } from "@/lib/useJsonLd";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -42,6 +43,8 @@ export default function About() {
       document.head.appendChild(meta);
     }
   }, []);
+
+  useJsonLd("breadcrumb", breadcrumb("About", "/about"));
 
   return (
     <div className="min-h-screen bg-warm-black text-cream">

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { IMAGES } from "@/lib/images";
 import { revealUp } from "@/lib/motion";
+import { useJsonLd, breadcrumb } from "@/lib/useJsonLd";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -78,6 +79,8 @@ export default function MenuPage() {
       document.head.appendChild(meta);
     }
   }, []);
+
+  useJsonLd("breadcrumb", breadcrumb("Menu", "/menu"));
 
   return (
     <div className="min-h-screen bg-cream text-warm-black">
