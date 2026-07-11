@@ -79,7 +79,7 @@ export default function Navigation() {
         aria-label="Main navigation"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-[oklch(0.13_0.01_60/0.95)] backdrop-blur-md border-b border-white/5"
+            ? "bg-background/95 backdrop-blur-md border-b border-white/5"
             : "bg-transparent"
         }`}
       >
@@ -141,7 +141,7 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-[oklch(0.10_0.01_60/0.98)] backdrop-blur-lg flex flex-col items-center justify-center"
+            className="fixed inset-0 z-40 bg-background/98 backdrop-blur-lg flex flex-col items-center justify-center"
             onKeyDown={handleKeyDown}
           >
             <motion.div
