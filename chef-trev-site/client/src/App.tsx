@@ -8,6 +8,11 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Experiences from "./pages/Experiences";
+import ChefsTable from "./pages/experiences/ChefsTable";
+import PrivateDinners from "./pages/experiences/PrivateDinners";
+import Events from "./pages/experiences/Events";
+import BrandCollaborations from "./pages/experiences/BrandCollaborations";
+import Destination from "./pages/experiences/Destination";
 import MenuPage from "./pages/MenuPage";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
@@ -20,6 +25,11 @@ function Router() {
         <Route path={"/"} component={Home} />
         <Route path={"/about"} component={About} />
         <Route path={"/experiences"} component={Experiences} />
+        <Route path={"/experiences/chefs-table"} component={ChefsTable} />
+        <Route path={"/experiences/private-dinners"} component={PrivateDinners} />
+        <Route path={"/experiences/events"} component={Events} />
+        <Route path={"/experiences/brand-collaborations"} component={BrandCollaborations} />
+        <Route path={"/experiences/destination"} component={Destination} />
         <Route path={"/menu"} component={MenuPage} />
         <Route path={"/gallery"} component={Gallery} />
         <Route path={"/contact"} component={Contact} />

@@ -13,6 +13,23 @@ export function breadcrumb(pageName: string, path: string) {
   };
 }
 
+export function breadcrumb3(
+  parentName: string,
+  parentPath: string,
+  pageName: string,
+  path: string
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: parentName, item: `${SITE_URL}${parentPath}` },
+      { "@type": "ListItem", position: 3, name: pageName, item: `${SITE_URL}${path}` },
+    ],
+  };
+}
+
 export function useJsonLd(id: string, data: object) {
   useEffect(() => {
     let script = document.getElementById(id) as HTMLScriptElement | null;

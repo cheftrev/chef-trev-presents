@@ -6,60 +6,7 @@ import { revealUp, viewportOnce } from "@/lib/motion";
 import { useJsonLd, breadcrumb } from "@/lib/useJsonLd";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-
-const BANDS = [
-  {
-    eyebrow: "The Flagship",
-    title: "The Chef's Table — Bamboo Oasis",
-    paragraphs: [
-      "Our flagship. One candlelit table in a bamboo-lined garden, a multi-course menu built from that week's Los Angeles farm haul, and live music drifting through the leaves.",
-      "Come alone, if you like — a single seat at this table isn't the edge case, it's the whole idea. You arrive as guests. You leave as a table.",
-    ],
-    cta: { label: "Request Your Seat", href: "/contact" },
-    image: IMAGES.atmosphere.bambooBar,
-    alt: "The bamboo bar at the Bamboo Oasis, ready for the night",
-  },
-  {
-    eyebrow: "Your Place",
-    title: "Intimate Home Dinners",
-    paragraphs: [
-      "Your home, our kitchen. We bring the menu, the fire, and the flow to your space — for the anniversary, the reunion, the eight people you've been meaning to get in one room for two years. You host. We handle everything else.",
-    ],
-    cta: { label: "Plan Your Night", href: "/contact" },
-    image: IMAGES.events.kitchenChefPrep,
-    alt: "Trevor prepping in the kitchen before guests arrive",
-  },
-  {
-    eyebrow: "The Big Ones",
-    title: "Milestone Celebrations & Private Events",
-    paragraphs: [
-      "The birthdays that end in zero. The engagement. The send-off. When a moment deserves more than a restaurant reservation, we build the night around it — menu, music, and a table that makes 30 people feel like family.",
-    ],
-    cta: { label: "Mark the Moment", href: "/contact" },
-    image: IMAGES.people.candlelitTable,
-    alt: "Guests gathered close around a candlelit table",
-  },
-  {
-    eyebrow: "For Brands",
-    title: "Brand Collaborations & Partnerships",
-    paragraphs: [
-      "Dinners for brands that put people first. Product launches, team gatherings, partner events — designed so your guests remember the conversation, not the signage. We're selective. If your values match ours, we'll build something great together.",
-    ],
-    cta: { label: "Start a Conversation", href: "/contact" },
-    image: IMAGES.events.foodServing,
-    alt: "Dishes being served family style at a private event",
-  },
-  {
-    eyebrow: "Beyond LA",
-    title: "Destination Experiences",
-    paragraphs: [
-      "The table travels. For gatherings beyond Los Angeles, we scout, source, and build the full experience wherever your people are. Tell us where. We'll bring the fire.",
-    ],
-    cta: { label: "Tell Us Where", href: "/contact" },
-    image: IMAGES.events.tableEmpty,
-    alt: "An empty table waiting, wherever the night takes it",
-  },
-];
+import { EXPERIENCES } from "@/pages/experiences/data";
 
 export default function Experiences() {
   useEffect(() => {
@@ -135,80 +82,41 @@ export default function Experiences() {
         </div>
       </section>
 
-      {/* Five bands */}
-      {BANDS.map((band, i) => {
-        const imageOnRight = i % 2 === 1;
-        return (
-          <section key={band.title} className={`py-24 sm:py-32 ${i % 2 === 1 ? "bg-charcoal" : ""}`}>
-            <div className="max-w-7xl mx-auto px-5 sm:px-8">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                <motion.div
-                  variants={revealUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={viewportOnce}
-                  custom={0}
-                  className={`aspect-[4/5] overflow-hidden ${imageOnRight ? "order-1 lg:order-2" : "order-1"}`}
-                >
-                  <img
-                    src={band.image}
-                    alt={band.alt}
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
-                <div className={imageOnRight ? "order-2 lg:order-1" : "order-2"}>
-                  <motion.p
-                    variants={revealUp}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={viewportOnce}
-                    custom={0}
-                    className="eyebrow mb-4"
-                  >
-                    {band.eyebrow}
-                  </motion.p>
-                  <motion.h2
-                    variants={revealUp}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={viewportOnce}
-                    custom={1}
-                    className="font-serif text-3xl sm:text-4xl leading-tight mb-6"
-                  >
-                    {band.title}
-                  </motion.h2>
-                  <motion.div
-                    variants={revealUp}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={viewportOnce}
-                    custom={2}
-                    className="space-y-4 text-cream/60 leading-relaxed mb-8"
-                  >
-                    {band.paragraphs.map((p) => (
-                      <p key={p}>{p}</p>
-                    ))}
-                  </motion.div>
-                  <motion.div
-                    variants={revealUp}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={viewportOnce}
-                    custom={3}
-                  >
-                    <Link
-                      href={band.cta.href}
-                      className="inline-block px-6 py-3 border border-gold/40 text-gold text-xs tracking-[0.2em] uppercase hover:bg-gold hover:text-warm-black transition-all duration-300"
-                    >
-                      {band.cta.label}
-                    </Link>
-                  </motion.div>
-                </div>
-              </div>
-            </div>
-          </section>
-        );
-      })}
+      {/* Five experiences, condensed, linking to their dedicated pages */}
+      <section className="py-24 sm:py-32">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
+            {EXPERIENCES.map((exp, i) => (
+              <motion.div
+                key={exp.slug}
+                variants={revealUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+                custom={i * 0.3}
+              >
+                <Link href={`/experiences/${exp.slug}`} className="group block">
+                  <div className="aspect-[4/5] overflow-hidden mb-5">
+                    <img
+                      src={exp.image}
+                      alt={exp.heroAlt}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  </div>
+                  <p className="eyebrow mb-3">{exp.eyebrow}</p>
+                  <h2 className="font-serif text-2xl leading-tight mb-3">{exp.title}</h2>
+                  <p className="text-cream/60 leading-relaxed text-sm mb-4">
+                    {exp.paragraphs[0]}
+                  </p>
+                  <span className="text-gold text-xs tracking-[0.2em] uppercase group-hover:underline">
+                    See the Experience
+                  </span>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Closing */}
       <section className="py-32 sm:py-40 text-center">
@@ -221,12 +129,27 @@ export default function Experiences() {
         >
           Not sure which fits? Tell us about your night — we'll figure it out together.
         </motion.p>
-        <motion.p
+        <motion.div
           variants={revealUp}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
           custom={1}
+          className="mb-10"
+        >
+          <Link
+            href="/contact"
+            className="inline-block px-8 py-3.5 border border-gold/40 text-gold text-xs tracking-[0.2em] uppercase hover:bg-gold hover:text-warm-black transition-all duration-300"
+          >
+            Request Your Seat
+          </Link>
+        </motion.div>
+        <motion.p
+          variants={revealUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          custom={2}
           className="font-serif italic text-2xl sm:text-3xl text-cream/90"
         >
           See you at the table.
