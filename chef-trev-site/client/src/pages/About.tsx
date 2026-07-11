@@ -198,7 +198,7 @@ export default function About() {
         </section>
 
         {/* The Mission — quiet moment, no decoration */}
-        <section className="py-24 sm:py-32">
+        <section className="py-32 sm:py-40">
           <div className="max-w-3xl mx-auto px-5 sm:px-8 text-center">
             <motion.p
               variants={revealUp}
@@ -283,7 +283,7 @@ export default function About() {
         </section>
 
         {/* Closing */}
-        <section className="py-24 sm:py-32 text-center">
+        <section className="py-32 sm:py-40 text-center">
           <motion.p
             variants={revealUp}
             initial="hidden"
