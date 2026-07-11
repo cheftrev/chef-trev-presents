@@ -386,7 +386,7 @@ export default function Home() {
         </section>
 
         {/* The Guestbook */}
-        <section className="py-24 sm:py-32 bg-charcoal">
+        <section className="py-32 sm:py-40 bg-charcoal">
           <div className="max-w-4xl mx-auto px-5 sm:px-8 text-center">
             <motion.p
               variants={revealUp}
