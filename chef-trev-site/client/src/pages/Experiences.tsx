@@ -92,7 +92,7 @@ export default function Experiences() {
       {/* Five experiences, condensed, linking to their dedicated pages */}
       <section className="py-24 sm:py-32">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-14">
             {EXPERIENCES.map((exp, i) => (
               <motion.div
                 key={exp.slug}
@@ -101,6 +101,7 @@ export default function Experiences() {
                 whileInView="visible"
                 viewport={viewportOnce}
                 custom={i * 0.3}
+                className="w-full sm:w-[calc((100%-2rem)/2)] lg:w-[calc((100%-4rem)/3)]"
               >
                 <Link href={`/experiences/${exp.slug}`} className="group block">
                   <div className="aspect-[4/5] overflow-hidden mb-5">
