@@ -12,7 +12,7 @@ const NAV_LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 
-export default function Navigation() {
+export default function Navigation({ forceSolid = false }: { forceSolid?: boolean } = {}) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [location] = useLocation();
@@ -78,7 +78,7 @@ export default function Navigation() {
       <nav
         aria-label="Main navigation"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
+          scrolled || forceSolid
             ? "bg-background/95 backdrop-blur-md border-b border-white/5"
             : "bg-transparent"
         }`}
