@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { GALLERY_IMAGES } from "@/lib/images";
+import { revealUp } from "@/lib/motion";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -35,28 +36,31 @@ export default function Gallery() {
       <section className="pt-28 sm:pt-36 pb-12 sm:pb-16">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-gold text-xs tracking-[0.3em] uppercase mb-4"
+            variants={revealUp}
+            initial="hidden"
+            animate="visible"
+            custom={0}
+            className="eyebrow mb-4"
           >
-            Gallery
+            The Gallery
           </motion.p>
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="font-serif text-4xl sm:text-5xl md:text-7xl leading-[1.1] mb-6"
+            variants={revealUp}
+            initial="hidden"
+            animate="visible"
+            custom={1}
+            className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-[1.1] mb-6"
           >
-            Moments <span className="italic text-gold">Captured</span>
+            Real nights.
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            variants={revealUp}
+            initial="hidden"
+            animate="visible"
+            custom={2}
             className="text-cream/70 max-w-xl leading-relaxed"
           >
-            A visual archive of the people, places, and moments that define the Chef Trev Presents experience.
+            No filters, no staging — just real nights at the table: the garden, the fire, the food, and the people who showed up for each other.
           </motion.p>
         </div>
       </section>
