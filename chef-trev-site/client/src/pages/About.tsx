@@ -12,11 +12,6 @@ const TEAM = [
     bio: "Self-taught, intuitive, allergic to pretension. Builds the menus, leads the kitchen, and will absolutely come sit at your end of the table.",
   },
   {
-    name: "Ren Shaw",
-    role: "Sous Chef",
-    bio: "The steady hands behind the fire. If something arrives at your seat perfectly cooked — and it will — thank Ren.",
-  },
-  {
     name: "Adam Sanchez",
     role: "Head of Experience",
     bio: "The first face you see and the reason the night flows. Adam reads a room like Trevor reads a farmers market.",
@@ -79,7 +74,7 @@ export default function About() {
               initial="hidden"
               animate="visible"
               custom={1}
-              className="font-serif text-4xl sm:text-5xl md:text-7xl leading-[1.1]"
+              className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-[1.1]"
             >
               Why a table?
             </motion.h1>
@@ -267,7 +262,7 @@ export default function About() {
               />
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-8 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-12 max-w-2xl mx-auto">
               {TEAM.map((member, i) => (
                 <motion.div
                   key={member.name}
