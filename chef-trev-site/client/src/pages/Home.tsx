@@ -337,7 +337,7 @@ export default function Home() {
           <div className="absolute inset-0">
             <img
               src={IMAGES.events.tableCandelit}
-              alt="Candlelit event table"
+              alt="A candlelit table set for a private brand dinner, glowing low in the dark"
               className="w-full h-full object-cover opacity-30"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-warm-black via-warm-black/90 to-warm-black/70" />
@@ -433,7 +433,7 @@ export default function Home() {
           <div className="absolute inset-0">
             <img
               src={IMAGES.hero.peopleDinnerMoment2}
-              alt="Guests gathered at a candlelit dinner"
+              alt="Guests leaning in together at the candlelit table, deep in conversation"
               className="w-full h-full object-cover opacity-40"
             />
             <div className="absolute inset-0 bg-warm-black/60" />
