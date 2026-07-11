@@ -16,6 +16,8 @@ import Destination from "./pages/experiences/Destination";
 import MenuPage from "./pages/MenuPage";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 
 function Router() {
   return (
@@ -33,6 +35,8 @@ function Router() {
         <Route path={"/menu"} component={MenuPage} />
         <Route path={"/gallery"} component={Gallery} />
         <Route path={"/contact"} component={Contact} />
+        <Route path={"/privacy"} component={Privacy} />
+        <Route path={"/terms"} component={Terms} />
         <Route path={"/404"} component={NotFound} />
         <Route component={NotFound} />
       </Switch>

@@ -59,9 +59,19 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-16 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-cream/60">
-            &copy; {new Date().getFullYear()} Chef Trev Presents. All rights reserved.
-          </p>
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+            <p className="text-xs text-cream/60">
+              &copy; {new Date().getFullYear()} Chef Trev Presents. All rights reserved.
+            </p>
+            <div className="flex items-center gap-4">
+              <Link href="/privacy" className="text-xs text-cream/60 hover:text-gold transition-colors duration-300">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="text-xs text-cream/60 hover:text-gold transition-colors duration-300">
+                Terms of Service
+              </Link>
+            </div>
+          </div>
           <p className="text-xs text-cream/70">
             See you at the table.
           </p>
