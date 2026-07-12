@@ -96,7 +96,7 @@ export const PAST_MENUS: PastMenu[] = [
     dishes: [
       { name: "Crostini", description: "Whipped feta, olive tapenade, toasted organic sourdough." },
       { name: "Little Gem Salad", description: "Charred lemon vinaigrette." },
-      { name: "Braised Beef Short Ribs", description: "Red wine sauce, thyme." },
+      { name: "Braised Beef Short Ribs", description: "Braising jus, thyme." },
       { name: "Rosemary Garlic Mashed Potatoes", description: "Slow-roasted garlic, rosemary, oat milk." },
       { name: "Broccolini", description: "Lemon, crispy fried shallots." },
       { name: "Flourless Chocolate Cake", description: "Raspberry sauce, rose-water ice cream." },
