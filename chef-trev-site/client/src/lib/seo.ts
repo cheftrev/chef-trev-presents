@@ -20,9 +20,14 @@ function setCanonical(href: string) {
   link.setAttribute("href", href);
 }
 
+function clearRobotsMeta() {
+  document.querySelector('meta[name="robots"]')?.remove();
+}
+
 export function setSocialMeta(opts: { title: string; description: string; path: string; image: string }) {
   const url = `${SITE_URL}${opts.path}`;
   const image = opts.image.startsWith("http") ? opts.image : `${SITE_URL}${opts.image}`;
+  clearRobotsMeta();
   setCanonical(url);
   setMetaTag("property", "og:title", opts.title);
   setMetaTag("property", "og:description", opts.description);
@@ -31,6 +36,7 @@ export function setSocialMeta(opts: { title: string; description: string; path: 
   setMetaTag("property", "og:image", image);
   setMetaTag("name", "twitter:title", opts.title);
   setMetaTag("name", "twitter:description", opts.description);
+  setMetaTag("name", "twitter:image", image);
 }
 
 export function setNoIndex() {
