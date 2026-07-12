@@ -18,37 +18,37 @@ const COURSES = [
     label: "From the Water",
     dish: "Citrus-Cured Local Catch",
     description: "Sustainably caught white fish cured in citrus, finished with crisp fennel and cold-pressed olive oil.",
-    source: "Sourced from [fishery/dock, e.g., a Santa Barbara day boat].",
+    source: "Sourced from The Joint Seafood.",
   },
   {
     label: "The Greens",
     dish: "Crisp Kale Caesar",
     description: "Crisp kale tossed in our house lemon-caesar dressing with crispy chickpeas.",
-    source: "Greens from [Farm Name], [City].",
+    source: "Greens from Sunrise Organic Farms.",
   },
   {
     label: "From the Garden",
     dish: "Silky Squash Purée",
     description: "Slow-roasted seasonal squash blended silky with garlic and sage.",
-    source: "Squash from [Farm Name], [City].",
+    source: "Squash from Sunrise Organic Farms.",
   },
   {
     label: "From the Fire (Vegetables)",
     dish: "Wood-Fired Heritage Carrots",
     description: "Heritage carrots charred over open flame, glazed with brown butter and thyme.",
-    source: "Grown at [Farm Name], [City].",
+    source: "Grown at Sunrise Organic Farms.",
   },
   {
     label: "The Table",
     dish: "14-Hour Slow-Cooked Brisket",
     description: "Grass-fed brisket cooked low for 14 hours, finished tender in its own jus, carved at the table.",
-    source: "Beef from [Ranch Name].",
+    source: "Beef from Herd and Grace.",
   },
   {
     label: "Sweet Finish",
     dish: "Charred Stone Fruit & Cream",
     description: "Seasonal stone fruit caramelized over the fire's last coals, served warm with whipped cream and toasted honey oats.",
-    source: "Fruit from [Farm Name], [City].",
+    source: "Fruit from Sunrise Organic Farms.",
   },
 ];
 
