@@ -428,6 +428,58 @@ export default function Home() {
           </div>
         </section>
 
+        {/* First Access — SMS list */}
+        <section className="py-32 sm:py-40">
+          <div className="max-w-2xl mx-auto px-5 sm:px-8 text-center">
+            <motion.p
+              variants={revealUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              custom={0}
+              className="eyebrow mb-6"
+            >
+              First Access
+            </motion.p>
+            <motion.h2
+              variants={revealUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              custom={1}
+              className="font-serif text-3xl sm:text-4xl md:text-5xl leading-tight mb-6"
+            >
+              We text you first.
+            </motion.h2>
+            <motion.p
+              variants={revealUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              custom={2}
+              className="text-cream/60 leading-relaxed mb-8 max-w-md mx-auto"
+            >
+              Before a night goes public, our list hears about it first. Reply anytime — it's a real conversation, not a broadcast.
+            </motion.p>
+            <motion.div
+              variants={revealUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              custom={3}
+            >
+              <a
+                href="https://markitai.com/u/cheftrev"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-8 py-3.5 bg-gold text-warm-black text-xs tracking-[0.2em] uppercase font-semibold hover:bg-gold-light transition-all duration-300"
+              >
+                Get First Access
+              </a>
+            </motion.div>
+          </div>
+        </section>
+
         {/* Your Seat Awaits */}
         <section className="relative py-32 sm:py-40 overflow-hidden grain">
           <div className="absolute inset-0">
